@@ -8,6 +8,14 @@ public abstract class Usuario implements UserDetails {
     private String email;
     private String password;
     private String instituto;
+    private String tipo;
+    public java.lang.String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(java.lang.String tipo) {
+        this.tipo = tipo;
+    }
 
     public String getNombre() {
         return nombre;

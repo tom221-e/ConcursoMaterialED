@@ -1,13 +1,12 @@
 package ar.edu.unnoba.poo2013.model.controller;
 
-import ar.edu.unnoba.poo2013.model.model.MaterialAprovado;
+import ar.edu.unnoba.poo2013.model.model.MaterialEducativo;
 import ar.edu.unnoba.poo2013.model.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-import java.io.File;
-import java.io.IOException;
+
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -34,10 +33,10 @@ public class Controller {
             // Guardar el archivo en el directorio especificado
             Files.copy(file.getInputStream(), path);
 
-            MaterialAprovado materialAprovado=new MaterialAprovado();
+            MaterialEducativo materialAprovado=new MaterialEducativo();
             materialAprovado.setCreador("nombre del usuario que lo subio"); //podria ser el id o el nombre
             materialAprovado.setUbicacion(path); //direccion de guardado
-            usuarioService.getRepositorioDao().getMaterialAprovado().add(materialAprovado);
+            usuarioService.getRepositorioDao().getMaterialEducativo().add(materialAprovado);
 
         } catch (Exception e) {
             // Manejar cualquier excepción que pueda ocurrir durante el proceso de carga

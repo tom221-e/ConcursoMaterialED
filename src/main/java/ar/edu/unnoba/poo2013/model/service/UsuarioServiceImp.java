@@ -25,14 +25,14 @@ public class UsuarioServiceImp implements UsuarioService{
         this.repositorioDao = repositorioDao;
     }
 
-    public List<MaterialAprovado> materialAprovados(){
-        repositorioDao.getMaterialAprovado();
+    public List<MaterialEducativo> materialAprovados(){
+        repositorioDao.getMaterialEducativo();
     }
 
 
     @Override
     public List<Participante> getParticipantes() {
-        return repositorioDao.getParticipante();
+        return repositorioDao.getUsuarios();
     }
 
     @Override
@@ -47,7 +47,7 @@ public class UsuarioServiceImp implements UsuarioService{
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        for(UserDetails User : repositorioDao.getParticipante()){
+        for(UserDetails User : repositorioDao.getUsuarios()){
             if (User.getUsername().equals(username)) {
                 return User;
             }
@@ -66,7 +66,7 @@ public class UsuarioServiceImp implements UsuarioService{
     }
 
     @Override
-    public void meGusta(MaterialAprovado material) {
+    public void meGusta(MaterialEducativo material) {
         repositorioDao.buscar(material).meGusta();
     }
 
