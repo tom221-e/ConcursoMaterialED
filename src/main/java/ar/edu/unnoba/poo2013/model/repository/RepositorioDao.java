@@ -21,6 +21,15 @@ public class RepositorioDao {
         }
         return usuario;
     }
+    public List<Usuario> getParticipantes() {
+        List<Usuario> usuario=new ArrayList<Usuario>();
+        for (Usuario User : this.getUsuarios()){
+            if(User.getTipo().equals("Participante")){
+                usuario.add(User);
+            }
+        }
+        return usuario;
+    }
     public List<Usuario> getAdministrador() {
         List<Usuario> usuario=new ArrayList<Usuario>();
         for (Usuario User : this.getUsuarios()){

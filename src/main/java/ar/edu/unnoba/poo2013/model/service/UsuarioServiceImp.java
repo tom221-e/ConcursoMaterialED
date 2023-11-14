@@ -17,6 +17,7 @@ public class UsuarioServiceImp implements UsuarioService{
 
     }
 
+
     public RepositorioDao getRepositorioDao() {
         return repositorioDao;
     }
@@ -26,38 +27,30 @@ public class UsuarioServiceImp implements UsuarioService{
     }
 
     public List<MaterialEducativo> materialAprovados(){
-        repositorioDao.getMaterialEducativo();
+        return repositorioDao.getMaterialEducativo();
     }
 
-
-    @Override
-    public List<Participante> getParticipantes() {
+    public List<Usuario> getAllUsuarios() {
         return repositorioDao.getUsuarios();
     }
+    @Override
+    public List<Usuario> getParticipantes() {
+        return repositorioDao.getParticipantes();
+    }
 
     @Override
-    public List<Evaluador> getEvaluador() {
+    public List<Usuario> getEvaluador() {
         return repositorioDao.getEvaluador();
     }
 
     @Override
-    public List<Administrador> getAdministrador() {
+    public List<Usuario> getAdministrador() {
         return repositorioDao.getAdministrador();
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        for(UserDetails User : repositorioDao.getUsuarios()){
-            if (User.getUsername().equals(username)) {
-                return User;
-            }
-        }
-        for(UserDetails User : repositorioDao.getAdministrador()){
-            if (User.getUsername().equals(username)) {
-                return User;
-            }
-        }
-        for(UserDetails User : repositorioDao.getEvaluador()){
+        for(UserDetails User : repositorioDao.getUsuarios()) {
             if (User.getUsername().equals(username)) {
                 return User;
             }
@@ -66,17 +59,7 @@ public class UsuarioServiceImp implements UsuarioService{
     }
 
     @Override
-    public void meGusta(MaterialEducativo material) {
-        repositorioDao.buscar(material).meGusta();
-    }
-
-    @Override
-    public void cargarMaterial() {
-
-    }
-
-    @Override
-    public Integer getMeGusta() {
-        return null;
+    public void cargarMaterial(MaterialEducativo material) {
+        repositorioDao.getMaterialEducativo().add(material);
     }
 }
