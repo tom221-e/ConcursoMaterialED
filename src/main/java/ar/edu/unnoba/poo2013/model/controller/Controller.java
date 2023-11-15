@@ -7,8 +7,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-
 
 public class Controller {
     UsuarioService usuarioService;
@@ -22,8 +20,7 @@ public class Controller {
         if (user.isAdministrador()) {
                 return "/materialAdmin";
             }
-
-        return "/login";
+        return null;
     }
 
     @PostMapping("/material")

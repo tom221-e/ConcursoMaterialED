@@ -17,8 +17,7 @@ public interface UsuarioService extends UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws
             UsernameNotFoundException;
     public void cargarMaterial(MaterialEducativo material);
-    public List<MaterialEducativo> materialAprovados();
-    public RepositorioDao getRepositorioDao();
+    public List<MaterialEducativo> materialesEducativos();
 
 
 }

@@ -1,14 +1,40 @@
 package ar.edu.unnoba.poo2013.model.model;
 
+import jakarta.persistence.*;
 import org.springframework.security.core.userdetails.UserDetails;
-
+@Entity
+@Table(name="usuario")
 public abstract class Usuario implements UserDetails {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="idusuario")
+    private Long id;
     private String username;
     private String apellido;
     private String email;
     private String password;
     private String instituto;
     private String tipo;
+    @JoinColumn(name = "idmaterialed", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private MaterialEducativo materialEducativo;
+
+    public MaterialEducativo getMaterialEducativo() {
+        return materialEducativo;
+    }
+
+    public void setMaterialEducativo(MaterialEducativo materialEducativo) {
+        this.materialEducativo = materialEducativo;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public java.lang.String getTipo() {
         return tipo;
     }

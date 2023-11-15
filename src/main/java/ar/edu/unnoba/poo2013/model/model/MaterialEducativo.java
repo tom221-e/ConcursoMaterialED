@@ -1,17 +1,39 @@
 package ar.edu.unnoba.poo2013.model.model;
 
-import java.nio.file.Path;
+import jakarta.persistence.*;
 
+import java.nio.file.Path;
+@Entity
+@Table(name="materialeducativo")
 public class MaterialEducativo{
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="idmaterialed")
+    private Long Id;
     private String nombre;
     private String descripcion;
     private String grupo;
     private String creadores;
-
+    private String estado;
     private Path ubicacion;
-
     private Integer gusta=0;
 
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
+    public Long getId() {
+        return Id;
+    }
+
+    public void setId(Long id) {
+        Id = id;
+    }
 
     public String getNombre() {
         return nombre;
