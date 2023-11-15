@@ -3,6 +3,7 @@ package ar.edu.unnoba.poo2013.model.controller;
 import ar.edu.unnoba.poo2013.model.model.MaterialEducativo;
 import ar.edu.unnoba.poo2013.model.model.Usuario;
 import ar.edu.unnoba.poo2013.model.service.UsuarioService;
+import org.springframework.security.core.Authentication;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,16 +14,15 @@ public class Controller {
     UsuarioService usuarioService;
 
     @PostMapping("/login")
-    public String login(@RequestParam String username, @RequestParam String password) {
-        for (Usuario user : usuarioService.getAllUsuarios()) {
-            if (user.getUsername().equals(username) && user.getPassword().equals(password)) {
+    public String login(Authentication authentication) {
+        Usuario user = (Usuario) authentication.getPrincipal();
+        if (user.isParticipante()) {
                 return "/material";
             }
-            if (user.getUsername().equals(username) && user.getPassword().equals(password)) {
+        if (user.isAdministrador()) {
                 return "/materialAdmin";
             }
 
-        }
         return "/login";
     }
 

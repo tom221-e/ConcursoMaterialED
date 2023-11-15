@@ -57,5 +57,25 @@ public abstract class Usuario implements UserDetails {
         this.instituto = instituto;
     }
 
+    public boolean isParticipante(){
+        if(this.getTipo().equals("Participante")){
+            return true;
+        }
+        return false;
+    }
+    public boolean isEvaluador(){
+        if(this.getTipo().equals("Evaluador")){
+            return true;
+        }
+        return false;
+    }
+    public boolean isAdministrador(){
+        if(this.getTipo().equals("Administrador")){
+            return true;
+        }
+        return false;
+    }
+
+
 
 }
