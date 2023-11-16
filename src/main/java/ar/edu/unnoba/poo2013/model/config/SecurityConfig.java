@@ -1,6 +1,5 @@
 package ar.edu.unnoba.poo2013.model.config;
 
-import ar.edu.unnoba.poo2013.model.repository.RepositorioDao;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -36,7 +35,6 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
-    @Bean
-    public RepositorioDao getUsuarioDAO(){ return new RepositorioDao();}
+
 
 }

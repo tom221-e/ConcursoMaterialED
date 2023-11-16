@@ -2,8 +2,8 @@ package ar.edu.unnoba.poo2013.model.service;
 
 import ar.edu.unnoba.poo2013.model.model.*;
 import ar.edu.unnoba.poo2013.model.repository.MaterialEducativoRepository;
-import ar.edu.unnoba.poo2013.model.repository.RepositorioDao;
 import ar.edu.unnoba.poo2013.model.repository.UsuarioRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -14,7 +14,11 @@ import java.util.List;
 @Service
 
 public class UsuarioServiceImp implements UsuarioService{
+
+    @Autowired
     private UsuarioRepository usuarioRepository;
+
+    @Autowired
     private MaterialEducativoRepository materialEducativoRepository;
 
     @Override

@@ -1,7 +1,6 @@
 package ar.edu.unnoba.poo2013.model.service;
 
 import ar.edu.unnoba.poo2013.model.model.*;
-import ar.edu.unnoba.poo2013.model.repository.RepositorioDao;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

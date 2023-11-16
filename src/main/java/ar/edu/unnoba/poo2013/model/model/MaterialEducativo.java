@@ -2,7 +2,6 @@ package ar.edu.unnoba.poo2013.model.model;
 
 import jakarta.persistence.*;
 
-import java.nio.file.Path;
 @Entity
 @Table(name="materialeducativo")
 public class MaterialEducativo{
@@ -15,7 +14,7 @@ public class MaterialEducativo{
     private String grupo;
     private String creadores;
     private String estado;
-    private Path ubicacion;
+    private String ubicacion;
     private Integer gusta=0;
 
 
@@ -67,11 +66,11 @@ public class MaterialEducativo{
         this.creadores = creadores;
     }
 
-    public Path getUbicacion() {
+    public String getUbicacion() {
         return ubicacion;
     }
 
-    public void setUbicacion(Path ubicacion) {
+    public void setUbicacion(String ubicacion) {
         this.ubicacion = ubicacion;
     }
 

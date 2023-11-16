@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Bienvenido</title> <label th:text="${usuario.getNombre()}"></label>
+</head>
+<body>
+
+<div><h3>Administrador de Material Educativos</h3></div>
+
+<fieldset>
+    <div><h4>Opciones</h4></div>
+
+    <a class="badge badge-primary" th:href="@{/users/material}">Ver Materiales</a><br>
+    <a class="badge badge-primary" th:href="@{/users/newmaterial}">Cargar materiales</a><br>
+    <a class="badge badge-primary" th:href="@{/#}">Salir del Sistema</a><br>
+    <a class="badge badge-primary"  th:href="@{/logout}">Cerrar sesión</a><br>
+
+</fieldset>
+</body>
+</html>

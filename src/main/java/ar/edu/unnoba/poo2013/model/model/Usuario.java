@@ -10,6 +10,7 @@ public abstract class Usuario implements UserDetails {
     @Column(name="idusuario")
     private Long id;
     private String username;
+    private String nombre;
     private String apellido;
     private String email;
     private String password;
@@ -18,6 +19,14 @@ public abstract class Usuario implements UserDetails {
     @JoinColumn(name = "idmaterialed", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private MaterialEducativo materialEducativo;
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
 
     public MaterialEducativo getMaterialEducativo() {
         return materialEducativo;
