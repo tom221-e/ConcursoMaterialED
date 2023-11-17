@@ -8,6 +8,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import java.util.List;
 
 public interface UsuarioService extends UserDetailsService {
+    public List<MaterialEducativo> materialesEducativosEnRevision();
     public void create(Usuario usuario);
     public List<Usuario> getParticipantes();
     public List<Usuario> getAllUsuarios();

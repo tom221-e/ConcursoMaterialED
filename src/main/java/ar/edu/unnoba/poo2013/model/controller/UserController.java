@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 
 @Controller
+@RequestMapping("/users")
 public class UserController {
     UsuarioService usuarioService;
 
@@ -51,10 +52,17 @@ public class UserController {
     /*crear Nuevo Material*/
     @PreAuthorize("#authentication.principal.isParticipante()")  /*solo los participante pueden cargar material*/
     @PostMapping("users/material")
-    public String newMaterial(Model model) {
-        model.addAttribute("material", new MaterialEducativo());
-        return "/users/material";
+    public String newMaterial(Model model, Authentication authentication) {
+        Usuario usuario= (Usuario) authentication.getPrincipal();
+        if(usuario.getMaterialEducativo() != null) {
+            model.addAttribute("material", new MaterialEducativo());
+            return "/users/material";
+        }
+        else{
+            return "/users/materialcargado";
+        }
     }
+    @PreAuthorize("#authentication.principal.isParticipante()")
     @PostMapping
     public String createMaterial(@ModelAttribute MaterialEducativo material){
         material.setEnRevision();
@@ -62,24 +70,13 @@ public class UserController {
         return "redirect:/material";
     }
     /*Ver materiar del usuario en sesion*/
-    @PreAuthorize("#authentication.principal.isAdministrador()")  /*Solo los administradores pueden acceder*/
-    @PostMapping("users/materialAdmin")
+    @PreAuthorize("#authentication.principal.isParticipante()")  /*Solo los administradores pueden acceder*/
+    @PostMapping("users/materialview")
     public String publicarMaterial(Model model, Authentication authentication) {
         Usuario usuario= (Usuario) authentication.getPrincipal();
         MaterialEducativo materialEducativo= usuario.getMaterialEducativo();
         model.addAttribute("material", materialEducativo);
-        return "/users/materialAdmin";
-    }
-    /*Administrar materiales pendiente del rol de Administrador*/
-
-    /*cargar evaluador*/
-
-    /*aprobar Material*/
-    @PreAuthorize("#authentication.principal.isAdministrador()")  /*solo los administradores pueden aprovar materiales*/
-    @PostMapping("admin/administrarmaterial")
-    public String aprobarMaterial (@ModelAttribute MaterialEducativo material){
-        material.setAprobado();
-        return "redirect:/administrarmaterial";
+        return "/users/materialview";
     }
 
 }

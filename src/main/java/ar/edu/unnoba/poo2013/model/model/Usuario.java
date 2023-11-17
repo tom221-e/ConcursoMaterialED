@@ -44,7 +44,7 @@ public abstract class Usuario implements UserDetails {
         this.id = id;
     }
 
-    public java.lang.String getTipo() {
+    public String getTipo() {
         return tipo;
     }
 

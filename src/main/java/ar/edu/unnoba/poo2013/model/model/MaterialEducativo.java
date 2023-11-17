@@ -92,4 +92,7 @@ public class MaterialEducativo{
     public void setAprobado(){
         this.setEstado("Aprobado");
     }
+    public void setRechazado(){
+        this.setEstado("Rechazado");
+    }
 }

@@ -34,6 +34,15 @@ public class UsuarioServiceImp implements UsuarioService{
     public List<MaterialEducativo> materialesEducativos(){
         return materialEducativoRepository.findAll();
     }
+    public List<MaterialEducativo> materialesEducativosEnRevision(){
+        List<MaterialEducativo> matED = new ArrayList<MaterialEducativo>();
+        for(MaterialEducativo me : materialEducativoRepository.findAll()){
+            if (me.getEstado().equals("EnRevision")){
+                matED.add(me);
+            }
+        }
+        return matED;
+    }
 
     public List<Usuario> getAllUsuarios() {
         return usuarioRepository.findAll();
