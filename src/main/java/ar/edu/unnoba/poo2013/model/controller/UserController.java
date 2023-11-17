@@ -5,6 +5,7 @@ import ar.edu.unnoba.poo2013.model.model.Usuario;
 import ar.edu.unnoba.poo2013.model.service.UsuarioService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
@@ -48,6 +49,7 @@ public class UserController {
         return "redirect:/login?logout";
     }
     /*crear Nuevo Material*/
+    @PreAuthorize("#authentication.principal.isParticipante()")  /*solo los participante pueden cargar material*/
     @PostMapping("users/material")
     public String newMaterial(Model model) {
         model.addAttribute("material", new MaterialEducativo());
@@ -60,6 +62,7 @@ public class UserController {
         return "redirect:/material";
     }
     /*Ver materiar del usuario en sesion*/
+    @PreAuthorize("#authentication.principal.isAdministrador()")  /*Solo los administradores pueden acceder*/
     @PostMapping("users/materialAdmin")
     public String publicarMaterial(Model model, Authentication authentication) {
         Usuario usuario= (Usuario) authentication.getPrincipal();
@@ -72,6 +75,7 @@ public class UserController {
     /*cargar evaluador*/
 
     /*aprobar Material*/
+    @PreAuthorize("#authentication.principal.isAdministrador()")  /*solo los administradores pueden aprovar materiales*/
     @PostMapping("admin/administrarmaterial")
     public String aprobarMaterial (@ModelAttribute MaterialEducativo material){
         material.setAprobado();
