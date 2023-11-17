@@ -85,4 +85,11 @@ public class MaterialEducativo{
     public void meGusta(){
         this.gusta++;
     }
+
+    public void setEnRevision(){
+        this.setEstado("Revision");
+    }
+    public void setAprobado(){
+        this.setEstado("Aprobado");
+    }
 }

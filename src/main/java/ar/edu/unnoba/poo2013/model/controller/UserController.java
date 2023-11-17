@@ -17,12 +17,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 
 @Controller
-@RequestMapping("/users")
 public class UserController {
     UsuarioService usuarioService;
 
     /* Opciones de usuario en sesion*/
-    @GetMapping("/index")
+    @GetMapping("users/index")
     public String userInSession(Authentication authentication, Model model) {
         model.addAttribute("usuario", authentication.getPrincipal());
         return "users/index";
@@ -49,18 +48,19 @@ public class UserController {
         return "redirect:/login?logout";
     }
     /*crear Nuevo Material*/
-    @PostMapping("/material")
+    @PostMapping("users/material")
     public String newMaterial(Model model) {
         model.addAttribute("material", new MaterialEducativo());
         return "/users/material";
     }
     @PostMapping
     public String createMaterial(@ModelAttribute MaterialEducativo material){
+        material.setEnRevision();
         usuarioService.cargarMaterial(material);
         return "redirect:/material";
     }
     /*Ver materiar del usuario en sesion*/
-    @PostMapping("/materialAdmin")
+    @PostMapping("users/materialAdmin")
     public String publicarMaterial(Model model, Authentication authentication) {
         Usuario usuario= (Usuario) authentication.getPrincipal();
         MaterialEducativo materialEducativo= usuario.getMaterialEducativo();
@@ -71,7 +71,12 @@ public class UserController {
 
     /*cargar evaluador*/
 
-
+    /*aprobar Material*/
+    @PostMapping("admin/administrarmaterial")
+    public String aprobarMaterial (@ModelAttribute MaterialEducativo material){
+        material.setAprobado();
+        return "redirect:/administrarmaterial";
+    }
 
 }
 
