@@ -2,13 +2,16 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
-    <title>Bienvenido</title> <label th:text="${usuario.getNombre()}"></label>
+    <title>Bienvenido</title>
 </head>
 <body>
 
 <div><h3>Administrador de Material Educativos</h3></div>
 
 <fieldset>
+    <div><h4>Usuario:</h4> <td th:text="${usuario.getNombre()}"></td>
+    <h4>Rol:</h4> <td th:text="${usuario.getTipo()}"></td></div>
+
     <div><h4>Opciones</h4></div>
 
     <a class="badge badge-primary" th:href="@{/users/material}">Ver Materiales</a><br>

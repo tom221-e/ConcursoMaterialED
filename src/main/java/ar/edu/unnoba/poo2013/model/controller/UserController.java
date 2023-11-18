@@ -34,12 +34,14 @@ public class UserController {
     public String login(Authentication authentication) {
         Usuario user = (Usuario) authentication.getPrincipal();
         if (user.isParticipante()) {
-                return "users/index";
+                return "redirect:/users/index";
             }
         if (user.isAdministrador()) {
-                return "admin/index";
+                return "redirect:/admin/admin/index";
             }
-        return null;
+        else {
+            return null;
+        }
     }
     /*Cerrar sesion*/
     @GetMapping("/logout")
