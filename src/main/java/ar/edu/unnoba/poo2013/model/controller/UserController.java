@@ -25,7 +25,8 @@ public class UserController {
     /* Opciones de usuario en sesion*/
     @GetMapping("users/index")
     public String userInSession(Authentication authentication, Model model) {
-        model.addAttribute("usuario", authentication.getPrincipal());
+        Usuario usuario= (Usuario) authentication.getPrincipal();
+        model.addAttribute("usuario", usuario);
         return "users/index";
     }
     /*separa los usuarios dependiendo si son participantes o administradores*/
@@ -54,7 +55,7 @@ public class UserController {
     @PostMapping("users/material")
     public String newMaterial(Model model, Authentication authentication) {
         Usuario usuario= (Usuario) authentication.getPrincipal();
-        if(usuario.getMaterialEducativo() != null) {
+        if(usuario.getMaterialEducativo() == null) {
             model.addAttribute("material", new MaterialEducativo());
             return "/users/material";
         }
@@ -64,10 +65,12 @@ public class UserController {
     }
     @PreAuthorize("#authentication.principal.isParticipante()")
     @PostMapping
-    public String createMaterial(@ModelAttribute MaterialEducativo material){
+    public String createMaterial(@ModelAttribute MaterialEducativo material, Authentication authentication){
+        Usuario usuario=(Usuario) authentication.getPrincipal();
         material.setEnRevision();
-        usuarioService.cargarMaterial(material);
+        usuario.setMaterialEducativo(material);
         return "redirect:/material";
+
     }
     /*Ver materiar del usuario en sesion*/
     @PreAuthorize("#authentication.principal.isParticipante()")  /*Solo los administradores pueden acceder*/

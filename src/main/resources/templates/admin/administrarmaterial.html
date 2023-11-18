@@ -5,6 +5,27 @@
     <title>Title</title>
 </head>
 <body>
-
+<table>
+    <thead>
+    <tr>
+        <th>Nombre</th>
+        <th>Descripcion</th>
+        <th>Creador/es</th>
+        <th>Grupo</th>
+        <th>Estado</th>
+    </tr>
+    </thead>
+    <a class="badge badge-primary" th:href="@{/admin/index}">Volver</a><br>
+    <a class="badge badge-primary"  th:href="@{/logout}">Cerrar sesión</a><br>
+    <tbody>
+    <tr th:each="mat : ${materiales}">
+        <td th:text="${mat.getNombre()}"></td>
+        <td th:text="${mat.getDescripcion()}"></td>
+        <td th:text="${mat.getCreadores()}"></td>
+        <td th:text="${mat.getGrupo()}"></td>
+        <td th:text="${mat.getEstado()}"></td>
+    </tr>
+    </tbody>
+</table>
 </body>
 </html>

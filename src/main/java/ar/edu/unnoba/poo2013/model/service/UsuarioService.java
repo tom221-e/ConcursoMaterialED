@@ -14,7 +14,7 @@ public interface UsuarioService extends UserDetailsService {
     public List<Usuario> getAllUsuarios();
     public List<Usuario> getEvaluador();
     public List<Usuario> getAdministrador();
-    public UserDetails loadUserByUsername(String username) throws
+    public Usuario loadUserByUsername(String username) throws
             UsernameNotFoundException;
     public void cargarMaterial(MaterialEducativo material);
     public List<MaterialEducativo> materialesEducativos();

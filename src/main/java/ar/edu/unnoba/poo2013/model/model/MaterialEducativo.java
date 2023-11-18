@@ -2,6 +2,8 @@ package ar.edu.unnoba.poo2013.model.model;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name="materialeducativo")
 public class MaterialEducativo{
@@ -16,7 +18,6 @@ public class MaterialEducativo{
     private String estado;
     private String ubicacion;
     private Integer gusta=0;
-
 
     public String getEstado() {
         return estado;

@@ -2,11 +2,42 @@
 <html lang="en">
 <title>Formulario de carga de archivos</title>
 </head>
+<head>
+    <meta charset="UTF-8">
+    <title>Registrar Material Educativo</title>
+</head>
 <body>
-<h2>Cargar archivo</h2>
-<form action="/material" method="post" enctype="multipart/form-data">
-    <input type="file" name="file" /><br/><br/>
-    <input type="submit" value="Cargar archivo" />
+<div>Registrar Material</div>
+
+<form th:action="@{/users}" th:object="${material}" method="post">
+    <fieldset>
+        <legend>Datos del Material Educativo</legend>
+        <table>
+            <tr>
+                <td><label>Nombre: </label></td>
+                <td><input type="text" th:field="*{nombre}" /></td>
+            </tr>
+            <tr>
+                <td><label>Descripcion: </label></td>
+                <td><input type="text" th:field="*{descripcion}" /></td>
+            </tr>
+            <tr>
+                <td><label>Creador/es: </label></td>
+                <td><input type="text" th:field="*{creadores}" /></td>
+            </tr>
+            <tr>
+                <td><label>Grupo: </label></td>
+                <td><input type="text" th:field="*{grupo}" /></td>
+            </tr>
+
+            <tr>
+                <td>
+                    <button name="createMaterial" type="submit">Subir Material</button>
+                </td>
+            </tr>
+        </table>
+        <a class="badge badge-primary" th:href="@{/users/index}">Volver</a><br>
+    </fieldset>
 </form>
 </body>
 </html>

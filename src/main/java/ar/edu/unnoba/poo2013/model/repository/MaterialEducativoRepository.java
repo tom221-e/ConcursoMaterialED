@@ -8,6 +8,5 @@ import java.util.List;
 
 @Repository
 public interface MaterialEducativoRepository extends JpaRepository<MaterialEducativo, Long> {
-    List<MaterialEducativo> materialesEducativos();
-    void cargarMaterial(MaterialEducativo material);
+    List<MaterialEducativo> findAll();
 }

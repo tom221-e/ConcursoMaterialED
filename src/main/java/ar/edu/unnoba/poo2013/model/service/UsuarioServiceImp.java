@@ -26,9 +26,10 @@ public class UsuarioServiceImp implements UsuarioService{
         usuario.setPassword(new BCryptPasswordEncoder().encode(usuario.getPassword()));
         usuarioRepository.save(usuario);
     }
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public Usuario loadUserByUsername(String username) throws UsernameNotFoundException {
         /*System.out.println(new BCryptPasswordEncoder().encode("12345"));*/
-        return usuarioRepository.findOneByUsername(username);
+        return (Usuario) usuarioRepository.findOneByUsername(username);
+
     }
 
     public List<MaterialEducativo> materialesEducativos(){

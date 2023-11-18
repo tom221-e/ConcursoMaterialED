@@ -1,6 +1,7 @@
 package ar.edu.unnoba.poo2013.model.controller;
 
 import ar.edu.unnoba.poo2013.model.model.MaterialEducativo;
+import ar.edu.unnoba.poo2013.model.model.Usuario;
 import ar.edu.unnoba.poo2013.model.service.UsuarioService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
@@ -19,7 +20,8 @@ public class AdminController {
     @PreAuthorize("#authentication.principal.isAdministrador()")
     @GetMapping("admin/index")
     public String userInSession(Authentication authentication, Model model) {
-        model.addAttribute("usuario", authentication.getPrincipal());
+        Usuario usuario= (Usuario) authentication.getPrincipal();
+        model.addAttribute("usuario", usuario);
         return "admin/index";
     }
 
@@ -33,7 +35,7 @@ public class AdminController {
 
     /*aprobar Material*/
     @PreAuthorize("#authentication.principal.isAdministrador()")  /*solo los administradores pueden aprovar materiales*/
-    @PostMapping("admin/administrarmaterial")
+    @PostMapping("/aprobar")
     public String aprobarMaterial(@ModelAttribute MaterialEducativo material) {
         material.setAprobado();
         return "redirect:/administrarmaterial";
@@ -41,7 +43,7 @@ public class AdminController {
 
     /*aprobar Material*/
     @PreAuthorize("#authentication.principal.isAdministrador()")  /*solo los administradores pueden aprovar materiales*/
-    @PostMapping("admin/administrarmaterial")
+    @PostMapping("/rechazar")
     public String rechazarMaterial(@ModelAttribute MaterialEducativo material) {
         material.setRechazado();
         return "redirect:/administrarmaterial";
