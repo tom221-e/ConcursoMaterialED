@@ -60,8 +60,8 @@ public class UserController {
     @GetMapping("/material")
     public String newMaterial(Model model, Authentication authentication) {
         Usuario usuario= (Usuario) authentication.getPrincipal();
-        MaterialEducativo materialEducativo=usuario.getMaterialEducativo();
-        if(usuario.getMaterialEducativo() == null) {
+        String name= usuario.getUsername();
+        if(usuarioService.loadUserByUsername(name).getMaterialEducativo() == null) {
             model.addAttribute("material", new MaterialEducativo());
             return "users/material";
         }
