@@ -11,6 +11,7 @@ public class MaterialEducativo{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="idmaterialed")
     private Long Id;
+    @Column(unique=true)
     private String nombre;
     private String descripcion;
     private String grupo;
