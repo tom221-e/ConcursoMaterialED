@@ -74,6 +74,7 @@ public class UserController {
     @PostMapping
     public String createMaterial(@ModelAttribute MaterialEducativo material, Authentication authentication){
         Usuario usuario= (Usuario) authentication.getPrincipal();
+        material.setEnRevision();
         MaterialEducativo nuevoMaterial = usuarioService.getMaterialEducativoRepository().save(material);
         Usuario u2= usuarioService.getUsuarioRepository().findOneByUsername(usuario.getUsername());
         u2.setMaterialEducativo(nuevoMaterial);
