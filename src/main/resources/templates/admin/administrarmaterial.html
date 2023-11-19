@@ -13,6 +13,9 @@
         <th>Creador/es</th>
         <th>Grupo</th>
         <th>Estado</th>
+        <th>Accion</th>
+
+
     </tr>
     </thead>
     <a class="badge badge-primary" th:href="@{/admin/index}">Volver</a><br>
@@ -24,6 +27,10 @@
         <td th:text="${mat.getCreadores()}"></td>
         <td th:text="${mat.getGrupo()}"></td>
         <td th:text="${mat.getEstado()}"></td>
+        <td><a th:href="@{/admin/{id}/material(id=${mat.id})}">Ver material</a></td>
+        <td><a th:href="@{/admin/{id}/aprobar(id=${mat.id})}">Aprobar</a></td>
+        <td><a th:href="@{/admin/{id}/rechazar(id=${mat.id})}">Rechazar</a></td>
+
     </tr>
     </tbody>
 </table>

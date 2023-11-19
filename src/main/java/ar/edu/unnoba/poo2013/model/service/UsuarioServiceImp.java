@@ -45,7 +45,7 @@ public class UsuarioServiceImp implements UsuarioService{
     public List<MaterialEducativo> materialesEducativosEnRevision(){
         List<MaterialEducativo> matED = new ArrayList<MaterialEducativo>();
         for(MaterialEducativo me : materialEducativoRepository.findAll()){
-            if (me.getEstado().equals("EnRevision")){
+            if (me.getEstado().equals("Revision")){
                 matED.add(me);
             }
         }
@@ -65,7 +65,16 @@ public class UsuarioServiceImp implements UsuarioService{
         }
         return usuario;
     }
-
+    public void updateAprobado(Long id){
+        MaterialEducativo materialEducativo1=getMaterialEducativoRepository().getById(id);
+        materialEducativo1.setAprobado();
+        getMaterialEducativoRepository().save(materialEducativo1);
+    }
+    public void updateRechazado(Long id){
+        MaterialEducativo materialEducativo1=getMaterialEducativoRepository().getById(id);
+        materialEducativo1.setRechazado();
+        getMaterialEducativoRepository().save(materialEducativo1);
+    }
     @Override
     public List<Usuario> getEvaluador() {
         List<Usuario> usuario=new ArrayList<Usuario>();

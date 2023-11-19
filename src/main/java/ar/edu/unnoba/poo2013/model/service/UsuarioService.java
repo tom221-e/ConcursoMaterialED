@@ -22,6 +22,8 @@ public interface UsuarioService extends UserDetailsService {
     public List<MaterialEducativo> materialesEducativos();
     public MaterialEducativoRepository getMaterialEducativoRepository();
     public UsuarioRepository getUsuarioRepository();
+    public void updateAprobado(Long id);
+    public void updateRechazado(Long id);
 
 
 }
