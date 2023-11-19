@@ -5,6 +5,7 @@ import ar.edu.unnoba.poo2013.model.model.Usuario;
 import ar.edu.unnoba.poo2013.model.service.UsuarioService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -20,17 +21,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/users")
 public class UserController {
+
+    @Autowired
     UsuarioService usuarioService;
 
     /* Opciones de usuario en sesion*/
-    @GetMapping("users/index")
+    @GetMapping("/index")
     public String userInSession(Authentication authentication, Model model) {
         Usuario usuario= (Usuario) authentication.getPrincipal();
         model.addAttribute("usuario", usuario);
         return "users/index";
     }
     /*separa los usuarios dependiendo si son participantes o administradores*/
-    @PostMapping("/login")
+    @GetMapping("/login")
     public String login(Authentication authentication) {
         Usuario user = (Usuario) authentication.getPrincipal();
         if (user.isParticipante()) {
@@ -40,7 +43,7 @@ public class UserController {
                 return "redirect:/admin/admin/index";
             }
         else {
-            return null;
+            return "redirect:/login?error";
         }
     }
     /*Cerrar sesion*/
@@ -54,29 +57,33 @@ public class UserController {
     }
     /*crear Nuevo Material*/
     @PreAuthorize("#authentication.principal.isParticipante()")  /*solo los participante pueden cargar material*/
-    @PostMapping("users/material")
+    @GetMapping("/material")
     public String newMaterial(Model model, Authentication authentication) {
         Usuario usuario= (Usuario) authentication.getPrincipal();
+        MaterialEducativo materialEducativo=usuario.getMaterialEducativo();
         if(usuario.getMaterialEducativo() == null) {
             model.addAttribute("material", new MaterialEducativo());
-            return "/users/material";
+            return "users/material";
         }
         else{
-            return "/users/materialcargado";
+            model.addAttribute("material", usuario.getMaterialEducativo());
+            return "users/materialcargado";
         }
     }
     @PreAuthorize("#authentication.principal.isParticipante()")
     @PostMapping
     public String createMaterial(@ModelAttribute MaterialEducativo material, Authentication authentication){
-        Usuario usuario=(Usuario) authentication.getPrincipal();
-        material.setEnRevision();
-        usuario.setMaterialEducativo(material);
+        Usuario usuario= (Usuario) authentication.getPrincipal();
+        MaterialEducativo nuevoMaterial = usuarioService.getMaterialEducativoRepository().save(material);
+        Usuario u2= usuarioService.getUsuarioRepository().findOneByUsername(usuario.getUsername());
+        u2.setMaterialEducativo(nuevoMaterial);
+        usuarioService.getUsuarioRepository().save(u2);
         return "redirect:/material";
 
     }
     /*Ver materiar del usuario en sesion*/
     @PreAuthorize("#authentication.principal.isParticipante()")  /*Solo los administradores pueden acceder*/
-    @PostMapping("users/materialview")
+    @GetMapping("/materialview")
     public String publicarMaterial(Model model, Authentication authentication) {
         Usuario usuario= (Usuario) authentication.getPrincipal();
         MaterialEducativo materialEducativo= usuario.getMaterialEducativo();

@@ -1,6 +1,8 @@
 package ar.edu.unnoba.poo2013.model.service;
 
 import ar.edu.unnoba.poo2013.model.model.*;
+import ar.edu.unnoba.poo2013.model.repository.MaterialEducativoRepository;
+import ar.edu.unnoba.poo2013.model.repository.UsuarioRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -16,8 +18,10 @@ public interface UsuarioService extends UserDetailsService {
     public List<Usuario> getAdministrador();
     public Usuario loadUserByUsername(String username) throws
             UsernameNotFoundException;
-    public void cargarMaterial(MaterialEducativo material);
+    public void cargarMaterial(MaterialEducativo material, Usuario usuario);
     public List<MaterialEducativo> materialesEducativos();
+    public MaterialEducativoRepository getMaterialEducativoRepository();
+    public UsuarioRepository getUsuarioRepository();
 
 
 }

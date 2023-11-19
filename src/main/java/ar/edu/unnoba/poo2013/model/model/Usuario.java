@@ -2,9 +2,11 @@ package ar.edu.unnoba.poo2013.model.model;
 
 import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Table(name="usuario")
@@ -21,7 +23,7 @@ public class Usuario implements UserDetails {
     private String instituto;
     private String tipo;
     @JoinColumn(name = "id", referencedColumnName = "idmaterialed")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = true)
     private MaterialEducativo materialEducativo;
 
     public String getNombre() {
@@ -102,7 +104,7 @@ public class Usuario implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return List.of(new SimpleGrantedAuthority("ROLE_" + this.tipo));
     }
 
     public String getPassword() {
@@ -122,22 +124,13 @@ public class Usuario implements UserDetails {
     }
 
     public boolean isParticipante(){
-        if(this.getTipo().equals("Participante")){
-            return true;
-        }
-        return false;
+        return this.getTipo().equals("Participante");
     }
     public boolean isEvaluador(){
-        if(this.getTipo().equals("Evaluador")){
-            return true;
-        }
-        return false;
+        return this.getTipo().equals("Evaluador");
     }
     public boolean isAdministrador(){
-        if(this.getTipo().equals("Administrador")){
-            return true;
-        }
-        return false;
+        return this.getTipo().equals("Administrador");
     }
 
 

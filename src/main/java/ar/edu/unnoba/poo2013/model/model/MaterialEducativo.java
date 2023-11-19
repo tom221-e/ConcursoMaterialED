@@ -17,6 +17,7 @@ public class MaterialEducativo{
     private String creadores;
     private String estado;
     private String ubicacion;
+
     private Integer gusta=0;
 
     public String getEstado() {

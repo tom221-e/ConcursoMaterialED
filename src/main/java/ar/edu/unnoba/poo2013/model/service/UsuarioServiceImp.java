@@ -21,6 +21,13 @@ public class UsuarioServiceImp implements UsuarioService{
     @Autowired
     private MaterialEducativoRepository materialEducativoRepository;
 
+    public MaterialEducativoRepository getMaterialEducativoRepository(){
+        return materialEducativoRepository;
+    }
+    public  UsuarioRepository getUsuarioRepository(){
+        return usuarioRepository;
+    }
+
     @Override
     public void create(Usuario usuario){
         usuario.setPassword(new BCryptPasswordEncoder().encode(usuario.getPassword()));
@@ -82,9 +89,11 @@ public class UsuarioServiceImp implements UsuarioService{
     }
 
     @Override
-    public void cargarMaterial(MaterialEducativo material) {
-        materialEducativoRepository.save(material);
+    public void cargarMaterial(MaterialEducativo material, Usuario usuario) {
+        MaterialEducativo nuevoMaterial = materialEducativoRepository.save(material);
+        usuario.setMaterialEducativo(nuevoMaterial);
+        usuarioRepository.save(usuario);
     }
 
-
 }
+
