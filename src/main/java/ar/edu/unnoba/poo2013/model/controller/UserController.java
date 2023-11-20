@@ -33,19 +33,7 @@ public class UserController {
         return "users/index";
     }
     /*separa los usuarios dependiendo si son participantes o administradores*/
-    @GetMapping("/login")
-    public String login(Authentication authentication) {
-        Usuario user = (Usuario) authentication.getPrincipal();
-        if (user.isParticipante()) {
-                return "redirect:/users/index";
-            }
-        if (user.isAdministrador()) {
-                return "redirect:/admin/admin/index";
-            }
-        else {
-            return "redirect:/login?error";
-        }
-    }
+
     /*Cerrar sesion*/
     @GetMapping("/logout")
     public String logoutPage(HttpServletRequest request, HttpServletResponse response) {

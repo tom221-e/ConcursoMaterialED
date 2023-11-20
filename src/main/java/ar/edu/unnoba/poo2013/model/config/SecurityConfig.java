@@ -30,7 +30,10 @@ public class SecurityConfig {
                         .requestMatchers("/admin/**").access("@securityService.isAdmin(authentication)")
                         .anyRequest().authenticated()
                 )
-                .formLogin((form) -> form.permitAll())
+                .formLogin((form) -> form
+                        .permitAll()
+                        .defaultSuccessUrl("/redirect")
+                )
                 .logout((logout) -> logout.permitAll());
         return http.build();
     }
