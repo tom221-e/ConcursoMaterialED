@@ -17,7 +17,7 @@ public class AdminController {
     @Autowired
     UsuarioService usuarioService;
     @GetMapping("admin/index")
-    @PreAuthorize("hasRole('ROLE_Administrador')")
+    @PreAuthorize("#authentication.principal.tipo == 'Administrador'")
     public String userInSession(Authentication authentication, Model model) {
         Usuario usuario= (Usuario) authentication.getPrincipal();
         model.addAttribute("usuario", usuario);

@@ -1,5 +1,7 @@
 package ar.edu.unnoba.poo2013.model.config;
 
+import ar.edu.unnoba.poo2013.model.service.SecurityService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -12,23 +14,25 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class SecurityConfig {
     private UserDetailsService userDetailsService;
-
-    public SecurityConfig(UserDetailsService userDetailsService) {
-        this.userDetailsService=userDetailsService;
+    private SecurityService securityService;
+    @Autowired
+    public SecurityConfig(UserDetailsService userDetailsService, SecurityService securityService) {
+        this.userDetailsService = userDetailsService;
+        this.securityService = securityService;
     }
+
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .userDetailsService(this.userDetailsService)
-                .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/webjars/**", "/resources/**","/css/**").permitAll()
-                        .requestMatchers("/").permitAll()
+                .authorizeRequests((requests) -> requests
+                        .requestMatchers("/webjars/**", "/resources/**", "/css/**").permitAll()
+                        .requestMatchers("/admin/**").access("@securityService.isAdmin(authentication)")
                         .anyRequest().authenticated()
                 )
                 .formLogin((form) -> form.permitAll())
                 .logout((logout) -> logout.permitAll());
         return http.build();
-
     }
     @Bean
     public PasswordEncoder passwordEncoder() {
